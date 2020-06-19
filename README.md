@@ -1,0 +1,1 @@
+# ros_writing_node
