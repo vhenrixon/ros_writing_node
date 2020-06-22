@@ -1,5 +1,5 @@
 <launch>
-    <node name="writer" pkg="ros_writer_node" type="Writer.py" output="screen">
-        <param name="target_publisher" value="/camera_pose"> 
+    <node name="Writer" pkg="ros_writing_node" type="writer.py" output="screen">
+        <param name="target_publisher" value="/camera_pose"/> 
     </node>   
 </launch>
