@@ -2,26 +2,26 @@
 import rospy
 import time  
 import os
-from geometry_msgs.msg import PoseStamped 
+from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped
 import random
 
 class Writer():
     def __init__(self): 
         
         rospy.init_node('Writer', anonymous=True)
-        self.target = rospy.get_param("target_publisher", "/camera_pose") # I should probaly make this a function that is try excpet case
+        self.target = rospy.get_param("target_publisher") # I should probaly make this a function that is try excpet case
         rospy.loginfo_once("The writer is created.")
         self.file = None
         self.is_file_open = False
-        self.sub = rospy.Subscriber(self.target, PoseStamped, self.writer_callback)
+        self.sub = rospy.Subscriber(self.target, PoseWithCovarianceStamped, self.writer_callback)
 
 
     def writer_callback(self, data):
         if(self.is_file_open):
-            self.file.write(str(data)+",")
+            self.file.write(str(data)+","+"\n")
         else: 
             cwd = os.getcwd()
-            fileName = cwd +"/"+self.target+str(random.randint(1,100000000)) +".csv" 
+            fileName = cwd+"/"+str(random.randint(1,100000000)) +".csv" 
             self.file = open(fileName,"w") 
             self.is_file_open = True
             rospy.loginfo_once("Created File! The file is located at "+ fileName)
