@@ -18,11 +18,10 @@ class Writer():
 
     def writer_callback(self, data):
         if(self.is_file_open):
-            
             self.file.write(str(data)+",")
         else: 
             cwd = os.getcwd()
-            fileName = cwd +"/"+str(random.randint(1,100000000)) +".csv" 
+            fileName = cwd +"/"+self.target+str(random.randint(1,100000000)) +".csv" 
             self.file = open(fileName,"w") 
             self.is_file_open = True
             rospy.loginfo_once("Created File! The file is located at "+ fileName)
