@@ -1,4 +1,5 @@
 <launch>
     <node name="Writer" pkg="ros_writing_node" type="writer.py" output="screen"></node>  
-     <param name="target_publisher" value="/dso_ros/pose"/>  
+     <param name="target_publisher" value="/camera_pose"/>  
+     <param name="file_type" value=".json"/>
 </launch>
