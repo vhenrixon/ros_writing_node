@@ -11,6 +11,7 @@ class Writer():
     def __init__(self): 
         
         rospy.init_node('Writer', anonymous=True)
+        # Launch file params
         self.target = rospy.get_param("target_publisher") # I should probaly make this a function that is try excpet case
         self.file_type = rospy.get_param('file_type')
         rospy.loginfo_once("The writer is created.")
@@ -18,8 +19,9 @@ class Writer():
         self.is_file_open = False
         self.sub = rospy.Subscriber(self.target, PoseStamped, self.writer_callback)
 
-    
+    '''
     def file_filter(self, raw_message):
+        # Parse the raw message into the wanted parts
         parsed_msg = {}
         parsed_msg['seq'] = raw_message.header.seq
         parsed_msg['secs'] = raw_message.header.stamp.secs
@@ -28,8 +30,10 @@ class Writer():
         parsed_msg['pose_y'] = raw_message.pose.position.y
         parsed_msg['pose_z'] = raw_message.pose.position.z
         return parsed_msg
+    '''
 
     def writer_callback(self, data):
+        # The callback that creates the file and writes to the file
         if(self.is_file_open):
             if self.file_type == ".json":
                 filter_data = self.file_filter(data)
